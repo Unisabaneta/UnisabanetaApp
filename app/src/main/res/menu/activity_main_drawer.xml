@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_noticias"
+            android:icon="@drawable/news"
+            android:title="Noticias" />
+        <item
+            android:id="@+id/menu_notas"
+            android:icon="@drawable/notas"
+            android:title="Notas (SAG)" />
+        <item
+            android:id="@+id/menu_inicioSesion"
+            android:icon="@drawable/google_logo"
+            android:title="Iniciar Sesión"
+            />
+
+    </group>
+
+    <item android:title="Redes Sociales">
+        <menu>
+            <item
+                android:id="@+id/menu_facebook"
+                android:icon="@drawable/facebook"
+                android:title="Facebook" />
+            <item
+                android:id="@+id/menu_twitter"
+                android:icon="@drawable/twitter"
+                android:title="Twitter" />
+            <item
+                android:id="@+id/menu_instagram"
+                android:icon="@drawable/instagram3"
+                android:title="Instagram" />
+        </menu>
+    </item>
+
+</menu>

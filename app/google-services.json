@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "636263014497",
+    "firebase_url": "https://unisabaneta-movil.firebaseio.com",
+    "project_id": "unisabaneta-movil",
+    "storage_bucket": "unisabaneta-movil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636263014497:android:139fcd02af7eb26d",
+        "android_client_info": {
+          "package_name": "com.apps.unisabanetaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636263014497-m3a5aoore6870t83oiaolvtsj0fkp3gn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apps.unisabanetaapp",
+            "certificate_hash": "5779a3b1b05b2b9a83b20c587df781cf2877d675"
+          }
+        },
+        {
+          "client_id": "636263014497-j9ole4h23idktras5a46qnnt1stfferp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apps.unisabanetaapp",
+            "certificate_hash": "ebb19857ef9b9f31ebfada1e9506c52bcb39bd39"
+          }
+        },
+        {
+          "client_id": "636263014497-03oii8oajeu00nm8c5os2cu3qeabtlj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC36APXznIkdltVaJkeWoKV_BptGULRuFo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636263014497-03oii8oajeu00nm8c5os2cu3qeabtlj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

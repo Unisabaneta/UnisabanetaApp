@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.apps.unisabanetaapp.ActividadPrincipal"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/reciclador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/layoutActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/boton_actualizar"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:srcCompat="@drawable/refresh_2" />
+
+        <TextView
+            android:id="@+id/texto_actualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Actualizar"
+            android:textAlignment="center"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

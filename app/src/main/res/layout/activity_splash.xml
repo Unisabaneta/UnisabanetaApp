@@ -1,0 +1,17 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context="com.apps.unisabanetaapp.SplashActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2C65A8"
+        android:contentDescription="@string/app_name"
+        android:padding="50dp"
+        android:src="@drawable/logo_u" />
+
+</RelativeLayout>
