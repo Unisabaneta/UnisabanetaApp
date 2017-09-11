@@ -70,10 +70,13 @@
     
     <!--string name="NAMESPACE">http://tempuri.org/</string>
     <string name="URL">http://serviciowebunisabaneta3.azurewebsites.net/WebService1.asmx</string-->
+    
+    <string name="User_SOAP">CaeqUnisab</string>
+    <string name="Pass_SOAP">rr2ily3x3y3hxw9vfldq0wqrzzuk7jmy</string>
 
     <string name="NAMESPACE">http://tempuri.org/</string>
     <string name="URL">http://virtual.unisabaneta.edu.co:8041/WSUnisabanetaMovil.asmx</string>
     <string name="URL_noticias">http://virtual.unisabaneta.edu.co:8046/WebServiceNews.asmx</string>
-
+    <!--<string name="URL_noticias">http://192.168.6.116:5000/WebServiceNews.asmx</string>-->
 
 </resources>
