@@ -2,21 +2,13 @@ apply plugin: 'com.android.application'
 
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'key0'
-            keyPassword 'android'
-            storeFile file('C:/Users/DINGENIERIA.UNISAB/.android/debug.keystore')
-            storePassword 'android'
-        }
-    }
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.apps.unisabanetaapp"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 25
-        versionCode 4
+        versionCode 9
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -24,9 +16,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            signingConfig signingConfigs.config
         }
     }
 }
