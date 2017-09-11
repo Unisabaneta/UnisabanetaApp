@@ -25,11 +25,14 @@ import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
+import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Node;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -138,6 +141,8 @@ public class FragmentoRecord extends Fragment {
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultarRecord";
             String SOAP_ACTION = "http://tempuri.org/ConsultarRecord";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -160,10 +165,13 @@ public class FragmentoRecord extends Fragment {
 
             envelope.setOutputSoapObject(request);
 
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
+
             HttpTransportSE transporte = new HttpTransportSE(URL);
 
             try
-            {
+            {   //transporte.call(SOAP_ACTION, envelope, headerPropertyList);
                 transporte.call(SOAP_ACTION, envelope);
                 SoapObject resSoap =(SoapObject)envelope.getResponse();
                 listaRecord = new Record[resSoap.getPropertyCount()];
@@ -446,6 +454,8 @@ public class FragmentoRecord extends Fragment {
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultarProgramas";
             String SOAP_ACTION = "http://tempuri.org/ConsultarProgramas";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -461,6 +471,9 @@ public class FragmentoRecord extends Fragment {
             envelope.dotNet = true;
 
             envelope.setOutputSoapObject(request);
+
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
 
             HttpTransportSE transporte = new HttpTransportSE(URL);
 
@@ -588,4 +601,5 @@ public class FragmentoRecord extends Fragment {
         return String.valueOf(chars);
 
     }
+
 }

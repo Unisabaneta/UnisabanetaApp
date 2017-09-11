@@ -39,15 +39,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Node;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 
 /**
  * Fragmento que controla una Interfaz Visual para el modulo de Noticias por tarjetas
@@ -157,21 +160,28 @@ public class FragmentoNoticias extends Fragment {
 
             String NAMESPACE = getResources().getString(R.string.NAMESPACE);
             String URL=getResources().getString(R.string.URL_noticias);
-            String METHOD_NAME = "ConsultaNoticias";
-            String SOAP_ACTION = "http://tempuri.org/ConsultaNoticias";
+            String METHOD_NAME = "ConsultaNoticiasUni";
+            String SOAP_ACTION = "http://tempuri.org/ConsultaNoticiasUni";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
-            SoapSerializationEnvelope envelope =
+                    SoapSerializationEnvelope envelope =
                     new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
             envelope.dotNet = true;
 
             envelope.setOutputSoapObject(request);
 
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
+
             HttpTransportSE transporte = new HttpTransportSE(URL);
 
             try
-            {   transporte.call(SOAP_ACTION, envelope);
+            {   //transporte.call(SOAP_ACTION, envelope, headerPropertyList);
+                transporte.call(SOAP_ACTION, envelope);
                 SoapObject resSoap =(SoapObject)envelope.getResponse();
                 listaNoticias = new Noticia[resSoap.getPropertyCount()];
 
@@ -560,6 +570,5 @@ public class FragmentoNoticias extends Fragment {
         private static final ImageHolder imageHolder = new ImageHolder();
         public static ImageHolder getInstance() {return imageHolder;}
     }
-
 
 }

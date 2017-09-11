@@ -35,11 +35,14 @@ import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
+import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Node;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -257,6 +260,8 @@ public class FragmentoHorario extends Fragment {
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultarPeriodo";
             String SOAP_ACTION = "http://tempuri.org/ConsultarPeriodo";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -279,10 +284,14 @@ public class FragmentoHorario extends Fragment {
 
             envelope.setOutputSoapObject(request);
 
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
+
             HttpTransportSE transporte = new HttpTransportSE(URL);
 
             try
-            {   transporte.call(SOAP_ACTION, envelope);
+            {   //transporte.call(SOAP_ACTION, envelope, headerPropertyList);
+                transporte.call(SOAP_ACTION, envelope);
                 SoapObject resSoap =(SoapObject)envelope.getResponse();
                 listaPeriodos = new String[resSoap.getPropertyCount()];
 
@@ -428,6 +437,8 @@ public class FragmentoHorario extends Fragment {
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultaHorario";
             String SOAP_ACTION = "http://tempuri.org/ConsultaHorario";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -454,6 +465,9 @@ public class FragmentoHorario extends Fragment {
             envelope.dotNet = true;
 
             envelope.setOutputSoapObject(request);
+
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
 
             HttpTransportSE transporte = new HttpTransportSE(URL);
             int conteo=0;
@@ -555,6 +569,8 @@ public class FragmentoHorario extends Fragment {
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultarProgramas";
             String SOAP_ACTION = "http://tempuri.org/ConsultarProgramas";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -570,6 +586,9 @@ public class FragmentoHorario extends Fragment {
             envelope.dotNet = true;
 
             envelope.setOutputSoapObject(request);
+
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
 
             HttpTransportSE transporte = new HttpTransportSE(URL);
 

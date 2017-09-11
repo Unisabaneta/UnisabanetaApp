@@ -27,11 +27,14 @@ import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
+import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Node;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -50,8 +53,12 @@ public class FragmentoNotas extends Fragment {
 
     Spinner spinnerProgramas;
     Spinner spinnerPeriodo;
+    TextView textPromedio;
     private Programa[] listaProgramas;
     private String[] listaPeriodos;
+    double notaPromedio;
+    double notaFinal;
+    int creditosTotales;
     int programaId;
     String correo;
     String periodo = "";
@@ -67,8 +74,8 @@ public class FragmentoNotas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.fragmento_notas, container, false);
+        textPromedio = (TextView) view.findViewById(R.id.textPromedio);
         return view;
     }
 
@@ -219,11 +226,14 @@ public class FragmentoNotas extends Fragment {
         protected Boolean doInBackground(String... params) {
             publishProgress(0);
             boolean resul = true;
+            double notaFinal = 0, creditosTotales = 0;
 
             String NAMESPACE = getResources().getString(R.string.NAMESPACE);
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultarNotas";
             String SOAP_ACTION = "http://tempuri.org/ConsultarNotas";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -251,11 +261,13 @@ public class FragmentoNotas extends Fragment {
 
             envelope.setOutputSoapObject(request);
 
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
+
             HttpTransportSE transporte = new HttpTransportSE(URL);
 
             try
-            {
-
+            {   //transporte.call(SOAP_ACTION, envelope, headerPropertyList);
                 transporte.call(SOAP_ACTION, envelope);
                 SoapObject resSoap =(SoapObject)envelope.getResponse();
                 listaNotas = new Notas[resSoap.getPropertyCount()];
@@ -270,9 +282,15 @@ public class FragmentoNotas extends Fragment {
                     notas.tipoEvaluacion.add(ic.getProperty(2).toString());
                     notas.asignatura = ic.getProperty(3).toString();
                     notas.creditos = Integer.parseInt(ic.getProperty(4).toString());
-
+                    notaFinal += ((Double.parseDouble(ic.getProperty(0).toString()) / 5) * (Double.parseDouble(ic.getProperty(1).toString())) / 20);
+                    if((i>0) && (listaNotas[i-1].asignatura != notas.asignatura) || (i+1 == listaNotas.length)) {
+                        creditosTotales += notas.creditos;
+                        notaPromedio += (notaFinal * notas.creditos);
+                        notaFinal = 0;
+                    }
             listaNotas[i] = notas;
         }
+        notaPromedio = notaPromedio / creditosTotales;
     }
             catch (Exception e)
     {
@@ -309,9 +327,7 @@ public class FragmentoNotas extends Fragment {
                                 items.get(posicion).tipoEvaluacion.add(listaNotas[i].getTipoEvaluacion());
                             }
                     }
-
                 }
-
                 // Obtener el Recycler
                 recycler = (RecyclerView) view.findViewById(R.id.recicladorNotas);
                 recycler.setHasFixedSize(true);
@@ -378,7 +394,7 @@ public class FragmentoNotas extends Fragment {
             DecimalFormat df = new DecimalFormat("#.00");
             DecimalFormat df2 = new DecimalFormat("#.0");
 
-            if(viewHolder.tablaNotas.getChildCount()==2) {
+            //if(viewHolder.tablaNotas.getChildCount()==2) {
 
                 viewHolder.creditos.setText("Créditos: " + Integer.toString(items.get(i).getCreditos()));
                 viewHolder.asignatura.setText(minusculas(items.get(i).getAsignatura()));
@@ -426,10 +442,12 @@ public class FragmentoNotas extends Fragment {
 
                     sumaPorcentaje = sumaPorcentaje + items.get(i).porcentaje.get(j);
                     notaFinal = notaFinal + ((items.get(i).nota.get(j) / 5) * (items.get(i).porcentaje.get(j)) / 20);
-                }
 
+                }
+                textPromedio.setText("\t"+df.format(notaPromedio));
                 viewHolder.sumaPorcentajes.setText(df2.format(sumaPorcentaje));
                 viewHolder.notaFinal.setText(df.format(notaFinal));
+
 
                 if (sumaPorcentaje == 100 || sumaPorcentaje == 1) {
                     viewHolder.textoNota.setText("Nota: " + df.format(notaFinal));
@@ -441,7 +459,7 @@ public class FragmentoNotas extends Fragment {
                     viewHolder.textoNota.setText("Nota: " + df.format(notaFinal));
                     viewHolder.textoEstado.setText("Estado: En Curso");
                 }
-            }
+            //}
         }
     }
 
@@ -458,7 +476,6 @@ public class FragmentoNotas extends Fragment {
         public TextView notaFinal;
         public TextView textoNota;
         public TextView textoEstado;
-
 
         ExpandableRelativeLayout el1;
 
@@ -499,6 +516,8 @@ public class FragmentoNotas extends Fragment {
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultarProgramas";
             String SOAP_ACTION = "http://tempuri.org/ConsultarProgramas";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -514,6 +533,9 @@ public class FragmentoNotas extends Fragment {
             envelope.dotNet = true;
 
             envelope.setOutputSoapObject(request);
+
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
 
             HttpTransportSE transporte = new HttpTransportSE(URL);
 
@@ -602,6 +624,8 @@ public class FragmentoNotas extends Fragment {
             String URL=getResources().getString(R.string.URL);
             String METHOD_NAME = "ConsultarPeriodo";
             String SOAP_ACTION = "http://tempuri.org/ConsultarPeriodo";
+            String USER = getResources().getString(R.string.User_SOAP);
+            String PASS = getResources().getString(R.string.Pass_SOAP);
 
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -623,6 +647,9 @@ public class FragmentoNotas extends Fragment {
             envelope.dotNet = true;
 
             envelope.setOutputSoapObject(request);
+
+            envelope.headerOut = new Element[1];
+            envelope.headerOut[0] = SoapAutenticationBuild.buildAuthHeader(NAMESPACE,USER,PASS);
 
             HttpTransportSE transporte = new HttpTransportSE(URL);
 
@@ -689,4 +716,5 @@ public class FragmentoNotas extends Fragment {
         return String.valueOf(chars);
 
     }
+
 }

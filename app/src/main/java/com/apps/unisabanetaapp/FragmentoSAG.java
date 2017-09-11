@@ -17,7 +17,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
  */
 public class FragmentoSAG extends Fragment {
 
-    public TabLayout tabs;
+    TabLayout tabs;
     View view;
     ViewPager viewPager;
     PagerAdapter adapter;

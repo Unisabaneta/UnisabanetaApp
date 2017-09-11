@@ -73,7 +73,6 @@ public class ActividadPrincipal extends AppCompatActivity
     String correo;
 
 
-
     private static final String TAG = "GoogleSignIn";
     private static final int RC_SIGN_IN = 9001;
 
@@ -538,11 +537,11 @@ public class ActividadPrincipal extends AppCompatActivity
     {
 
         AlertDialog.Builder aboutWindow = new AlertDialog.Builder(this);//creates a new instance of a dialog box
-        final String website = "      www.unisabaneta.edu.co";
-        final String AboutDialogMessage = "\n\n    Aplicación desarrollada por:   \n\n" +
-                "    Unisabaneta para el fortalecimiento institucional.\n\n";
+        final String website = "https://www.unisabaneta.edu.co";
+        final String AboutDialogMessage = "\n\n    Desarrollado por estudiantes de Unisabaneta:\n\n" +
+                "      Andrés Montoya\n      Camilo Díez\n      Juan Rivera\n\n";
         final TextView tx = new TextView(this);//we create a textview to store the dialog text/contents
-        tx.setText(AboutDialogMessage + website);//we set the text/contents
+        tx.setText(AboutDialogMessage +"    "+ website);//we set the text/contents
         tx.setAutoLinkMask(RESULT_OK);//to linkify any website or email links
         tx.setTextColor(Color.BLACK);//setting the text color
         tx.setTextSize(15);//setting the text size
