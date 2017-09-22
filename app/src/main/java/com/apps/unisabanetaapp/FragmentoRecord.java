@@ -406,7 +406,7 @@ public class FragmentoRecord extends Fragment {
                     }
                    // notaFinal = notaFinal + (items.get(i).creditos.get(j)/creditosTotales)*items.get(i).nota.get(j);
                 }
-                viewHolder.textoPromedio.setText("Promedio nivel: " + df.format(notaFinal));
+                //viewHolder.textoPromedio.setText("Promedio nivel: " + df.format(notaFinal));
             }
         }
     }

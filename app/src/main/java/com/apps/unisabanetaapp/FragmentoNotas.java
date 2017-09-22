@@ -56,9 +56,9 @@ public class FragmentoNotas extends Fragment {
     TextView textPromedio;
     private Programa[] listaProgramas;
     private String[] listaPeriodos;
-    double notaPromedio;
-    double notaFinal;
-    int creditosTotales;
+    double notaPromedio = 0;
+    double notaFinal = 0;
+    int creditosTotales = 0;
     int programaId;
     String correo;
     String periodo = "";
@@ -66,7 +66,8 @@ public class FragmentoNotas extends Fragment {
     boolean bandera2 = false;
     List<Notas> items;
     ActividadPrincipal actividadPrincipal;
-
+    DecimalFormat df = new DecimalFormat("#.00");
+    DecimalFormat df2 = new DecimalFormat("#.0");
     View view;
 
 
@@ -122,13 +123,12 @@ public class FragmentoNotas extends Fragment {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     if (verificaConexion(getActivity())){
                         items.clear();
-
+                            notaPromedio = 0;
                             periodo = listaPeriodos[i];
                             bandera2 = true;
 
                         ConsultaNotas tarea = new ConsultaNotas();
                         tarea.execute();
-
                     }
                     else
                         Snackbar.make(view, "Verifica tu conexión a internet.", Snackbar.LENGTH_LONG).show();
@@ -283,20 +283,24 @@ public class FragmentoNotas extends Fragment {
                     notas.asignatura = ic.getProperty(3).toString();
                     notas.creditos = Integer.parseInt(ic.getProperty(4).toString());
                     notaFinal += ((Double.parseDouble(ic.getProperty(0).toString()) / 5) * (Double.parseDouble(ic.getProperty(1).toString())) / 20);
-                    if((i>0) && (listaNotas[i-1].asignatura != notas.asignatura) || (i+1 == listaNotas.length)) {
+                    if((i>0) && (listaNotas[i-1].asignatura != notas.asignatura)) {
+                        creditosTotales += listaNotas[i-1].creditos;
+                        notaPromedio += (notaFinal * listaNotas[i-1].creditos);
+                        notaFinal = 0;
+                    } else if (i+1 == listaNotas.length){
                         creditosTotales += notas.creditos;
                         notaPromedio += (notaFinal * notas.creditos);
                         notaFinal = 0;
                     }
-            listaNotas[i] = notas;
-        }
-        notaPromedio = notaPromedio / creditosTotales;
-    }
+                    listaNotas[i] = notas;
+                }
+                notaPromedio = notaPromedio / creditosTotales;
+            }
             catch (Exception e)
-    {
-        resul = false;
-        Log.e("CONEXION", e.getMessage());
-    }
+            {
+                resul = false;
+                Log.e("CONEXION", e.getMessage());
+            }
 
             return resul;
         }
@@ -391,8 +395,6 @@ public class FragmentoNotas extends Fragment {
         public void onBindViewHolder(NotasViewHolder viewHolder, int i) {
 
             double sumaPorcentaje=0, notaFinal=0;
-            DecimalFormat df = new DecimalFormat("#.00");
-            DecimalFormat df2 = new DecimalFormat("#.0");
 
             //if(viewHolder.tablaNotas.getChildCount()==2) {
 
