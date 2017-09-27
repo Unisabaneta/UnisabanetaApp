@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -52,6 +53,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import me.biubiubiu.justifytext.library.JustifyTextView;
+
 /**
  * Fragmento que controla una Interfaz Visual para el modulo de Noticias por tarjetas
  */
@@ -68,8 +71,6 @@ public class FragmentoNoticias extends Fragment {
     ImageButton botonActualizar;
     TextView textoActualizar;
     LinearLayout layoutActualizar;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -474,6 +475,7 @@ public class FragmentoNoticias extends Fragment {
 
         @Override
         public void onBindViewHolder(NoticiaViewHolder viewHolder, int i) {
+            String text;
             viewHolder.imagen.setImageBitmap( items.get(i).getImagen());
             viewHolder.nombre.setText(minusculas(items.get(i).getTitulo()));
             viewHolder.descripcion.setText(String.valueOf(items.get(i).getDescripcion()));

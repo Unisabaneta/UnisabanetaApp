@@ -36,11 +36,11 @@
             android:id="@+id/textoPromedioNivel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/nivel"
             android:layout_marginTop="5dp"
-            android:text="Promedio Nivel"
-            android:layout_alignParentLeft="true" />
+            android:text="" />
 
         <HorizontalScrollView
             android:id="@+id/Vista"

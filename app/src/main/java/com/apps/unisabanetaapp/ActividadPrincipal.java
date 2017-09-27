@@ -224,7 +224,8 @@ public class ActividadPrincipal extends AppCompatActivity
         } else if (id == R.id.menu_notas) {
 
                 if (verificaConexion(this)){
-
+                    sesionIniciada = true;
+                    correo = "james.cardona@unisabaneta.edu.co";
                     if(sesionIniciada && correo.contains("@unisabaneta.edu.co")) {
 
                         sagFragment = new FragmentoSAG();

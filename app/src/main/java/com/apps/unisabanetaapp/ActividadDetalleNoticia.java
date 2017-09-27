@@ -42,6 +42,7 @@ public class ActividadDetalleNoticia extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalle_noticia);
 
@@ -54,10 +55,10 @@ public class ActividadDetalleNoticia extends AppCompatActivity {
         // Set title of Detail page
 
         Intent data = getIntent();
-        collapsingToolbar.setTitle(data.getStringExtra("Titulo"));
+        //collapsingToolbar.setTitle(data.getStringExtra("Titulo"));
 
         TextView descripcion = (TextView) findViewById(R.id.descripcion);
-        descripcion.setText(data.getStringExtra("Descripcion"));
+        descripcion.setText(data.getStringExtra("Descripcion").trim()+"\n");
 
         TextView titulo =  (TextView) findViewById(R.id.titulo);
         titulo.setText(minusculas(data.getStringExtra("Titulo")));
