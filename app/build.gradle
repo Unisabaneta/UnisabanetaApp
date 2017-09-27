@@ -47,6 +47,7 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.0.1'
     compile 'com.google.android.gms:play-services-gcm:11.0.1'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'me.biubiubiu.justifytext:library:1.1'
     testCompile 'junit:junit:4.12'
 }
 
